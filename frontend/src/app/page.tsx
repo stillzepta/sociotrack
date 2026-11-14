@@ -1959,7 +1959,7 @@ export default function App() {
 
               <div className="pt-6 border-t border-slate-100 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400 dark:text-slate-500">
                 <div>
-                  Powered by Zyrohouse. Built for Microsoft AI Hackathon.
+                  Powered by Zyrohouse.
                 </div>
                 <div className="font-mono">
                   © 2026 SocioTrack. Powered by Zyrohouse. All rights reserved.

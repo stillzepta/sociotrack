@@ -37,6 +37,22 @@ module.exports = {
           "Roboto",
           "sans-serif",
         ],
+        jakarta: [
+          '"Plus Jakarta Sans"',
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
+          "sans-serif",
+        ],
+        inter: [
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"Segoe UI"',
+          "Roboto",
+          "sans-serif",
+        ],
       },
       borderRadius: {
         card: "16px",

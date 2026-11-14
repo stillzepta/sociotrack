@@ -246,18 +246,18 @@ export function InsTrackGrowthCharts({
   };
 
   return (
-    <div className="w-full bg-white dark:bg-[#0B0F19] border border-slate-200/90 dark:border-[#1E293B] rounded-2xl p-5 sm:p-7 shadow-[0_4px_25px_rgba(0,0,0,0.04)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.4)] text-slate-900 dark:text-slate-100 select-none transition-colors duration-200">
+    <div className="w-full bg-[#111827] border border-[#E2E8F0]/20 rounded-2xl p-5 sm:p-7 shadow-md font-jakarta text-white select-none transition-colors duration-200">
       {/* Header with full Light/Dark support */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800/80">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
         <div>
-          <div className="text-xs font-mono font-medium text-slate-500 dark:text-slate-400 tracking-wide uppercase flex items-center space-x-2">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400" />
+          <div className="text-xs font-mono font-medium text-[#14B8A6] tracking-wide uppercase flex items-center space-x-2">
+            <Sparkles className="w-3.5 h-3.5 text-[#14B8A6]" />
             <span>Aggregate creator trajectory vs authorized growth benchmark</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-0.5">
+          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-0.5">
             Audience Growth Trajectory
             {handle !== "creator" && (
-              <span className="text-indigo-600 dark:text-indigo-400 ml-2 font-mono text-base font-normal">
+              <span className="text-[#14B8A6] ml-2 font-mono text-base font-normal">
                 @{handle}
               </span>
             )}
@@ -266,36 +266,36 @@ export function InsTrackGrowthCharts({
 
         {/* Badges + Mode Switchers */}
         <div className="flex flex-wrap items-center gap-2">
-          {/* Green Legend Badge */}
-          <div className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-emerald-50 dark:bg-[#10B981]/10 border border-emerald-200 dark:border-[#10B981]/30 text-xs font-mono font-bold text-emerald-700 dark:text-[#34D399] transition-colors">
-            <span className="w-2 h-2 rounded-full border-2 border-emerald-500 dark:border-[#10B981] bg-white dark:bg-white inline-block" />
+          {/* Target / Top Legend Badge */}
+          <div className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-[#14B8A6]/10 border border-[#14B8A6]/30 text-xs font-mono font-semibold text-[#14B8A6] transition-colors">
+            <span className="w-2 h-2 rounded-full border-2 border-[#14B8A6] bg-white inline-block" />
             <span className="capitalize">{labelTop}</span>
-            <span className="text-slate-500 dark:text-slate-400 font-normal">
+            <span className="text-[#94A3B8] font-normal">
               ({formatChartValue(curveTop[curveTop.length - 1])})
             </span>
           </div>
 
-          {/* Purple Legend Badge */}
-          <div className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-purple-50 dark:bg-[#8B5CF6]/10 border border-purple-200 dark:border-[#8B5CF6]/30 text-xs font-mono font-bold text-purple-700 dark:text-[#A78BFA] transition-colors">
-            <span className="w-2 h-2 rounded-full border-2 border-purple-500 dark:border-[#8B5CF6] bg-white dark:bg-white inline-block" />
+          {/* Followers / Bottom Legend Badge */}
+          <div className="flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/30 text-xs font-mono font-semibold text-[#8B5CF6] transition-colors">
+            <span className="w-2 h-2 rounded-full border-2 border-[#8B5CF6] bg-white inline-block" />
             <span className="capitalize">{labelBottom}</span>
-            <span className="text-slate-500 dark:text-slate-400 font-normal">
+            <span className="text-[#94A3B8] font-normal">
               ({formatChartValue(curveBottom[curveBottom.length - 1])})
             </span>
           </div>
 
           {/* Simple Date Filters (7 Days, 30 Days, 90 Days) */}
-          <div className="inline-flex items-center bg-slate-100 dark:bg-[#1E293B] p-0.5 rounded-xl border border-slate-200/80 dark:border-slate-700 transition-colors">
+          <div className="inline-flex items-center bg-[#0B0F19] p-0.5 rounded-xl border border-[#E2E8F0]/20 transition-colors">
             <button
               type="button"
               onClick={() => {
                 setTimeframe("7d");
                 if (activeMode === "following") setActiveMode("target");
               }}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 timeframe === "7d" && activeMode !== "following"
-                  ? "bg-[#6366F1] text-white shadow-xs"
-                  : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                  ? "bg-gradient-to-r from-[#0F766E] to-[#6366F1] text-white shadow-xs"
+                  : "text-[#94A3B8] hover:text-white"
               }`}
             >
               7 Days
@@ -306,10 +306,10 @@ export function InsTrackGrowthCharts({
                 setTimeframe("30d");
                 if (activeMode === "following") setActiveMode("target");
               }}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 timeframe === "30d" && activeMode !== "following"
-                  ? "bg-[#6366F1] text-white shadow-xs"
-                  : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                  ? "bg-gradient-to-r from-[#0F766E] to-[#6366F1] text-white shadow-xs"
+                  : "text-[#94A3B8] hover:text-white"
               }`}
             >
               30 Days
@@ -320,10 +320,10 @@ export function InsTrackGrowthCharts({
                 setTimeframe("90d");
                 if (activeMode === "following") setActiveMode("target");
               }}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 timeframe === "90d" && activeMode !== "following"
-                  ? "bg-[#6366F1] text-white shadow-xs"
-                  : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                  ? "bg-gradient-to-r from-[#0F766E] to-[#6366F1] text-white shadow-xs"
+                  : "text-[#94A3B8] hover:text-white"
               }`}
             >
               90 Days
@@ -334,10 +334,10 @@ export function InsTrackGrowthCharts({
           <button
             type="button"
             onClick={() => setActiveMode(activeMode === "following" ? "target" : "following")}
-            className={`px-3 py-1.5 text-xs font-bold rounded-xl border transition-all ${
+            className={`px-3 py-1.5 text-xs font-semibold rounded-xl border transition-all ${
               activeMode === "following"
-                ? "bg-purple-100 dark:bg-purple-950/60 border-purple-300 dark:border-purple-700 text-purple-700 dark:text-purple-300"
-                : "border-slate-200 dark:border-[#243048] bg-white dark:bg-[#161F30] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-[#8B5CF6]/20 border-[#8B5CF6] text-[#8B5CF6]"
+                : "border-[#E2E8F0]/20 bg-[#0B0F19] text-[#94A3B8] hover:text-white"
             }`}
           >
             {activeMode === "following" ? "vs Following (Active)" : "Compare Following"}
@@ -363,15 +363,15 @@ export function InsTrackGrowthCharts({
               top: "22%",
             }}
           >
-            <div className="bg-white/95 dark:bg-[#0B0F19]/95 border border-slate-200 dark:border-slate-700/80 shadow-[0_12px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_30px_rgba(0,0,0,0.6)] backdrop-blur-md rounded-xl p-3.5 min-w-[145px] space-y-1.5 animate-fade-in transition-colors">
-              <div className="text-xs font-bold text-slate-900 dark:text-slate-100 tracking-wide border-b border-slate-100 dark:border-slate-800 pb-1">
+            <div className="bg-[#111827] border border-[#E2E8F0]/30 shadow-2xl rounded-xl p-3.5 min-w-[145px] space-y-1.5 font-jakarta animate-fade-in transition-colors">
+              <div className="text-xs font-semibold text-white tracking-wide border-b border-slate-800 pb-1">
                 {activeDates[safeHoveredIndex]}
               </div>
-              <div className="flex items-center justify-between space-x-3 text-xs font-mono font-semibold text-emerald-600 dark:text-[#34D399]">
+              <div className="flex items-center justify-between space-x-3 text-xs font-mono font-semibold text-[#14B8A6]">
                 <span className="capitalize">{labelTop} :</span>
                 <span>{formatTooltipValue(activePtTop.val)}</span>
               </div>
-              <div className="flex items-center justify-between space-x-3 text-xs font-mono font-semibold text-purple-600 dark:text-[#A78BFA]">
+              <div className="flex items-center justify-between space-x-3 text-xs font-mono font-semibold text-[#8B5CF6]">
                 <span className="capitalize">{labelBottom} :</span>
                 <span>{formatTooltipValue(activePtBottom.val)}</span>
               </div>
@@ -387,13 +387,13 @@ export function InsTrackGrowthCharts({
           onMouseLeave={() => setHoveredIndex(3)} // Return to Apr on leave
         >
           <defs>
-            {/* Green Area Gradient */}
+            {/* Teal Accent Gradient */}
             <linearGradient id="budgetGreenGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#10B981" stopOpacity="0.22" />
-              <stop offset="100%" stopColor="#10B981" stopOpacity="0.00" />
+              <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.28" />
+              <stop offset="100%" stopColor="#14B8A6" stopOpacity="0.00" />
             </linearGradient>
 
-            {/* Purple Area Gradient */}
+            {/* Purple Secondary Accent Gradient */}
             <linearGradient id="spendPurpleGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.32" />
               <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.00" />
@@ -411,7 +411,7 @@ export function InsTrackGrowthCharts({
                   y1={y}
                   x2={svgWidth - paddingRight}
                   y2={y}
-                  className="stroke-slate-200 dark:stroke-[#1E293B]"
+                  className="stroke-[#334155]"
                   strokeWidth="1"
                   strokeDasharray="4 4"
                 />
@@ -420,7 +420,7 @@ export function InsTrackGrowthCharts({
                   x={paddingLeft - 12}
                   y={y + 4}
                   textAnchor="end"
-                  className="text-[11px] font-mono fill-slate-500 dark:fill-slate-400 select-none transition-colors"
+                  className="text-[11px] font-mono fill-[#94A3B8] select-none transition-colors"
                 >
                   {formatChartValue(t.val)}
                 </text>
@@ -434,7 +434,7 @@ export function InsTrackGrowthCharts({
             y1={paddingTop - 5}
             x2={paddingLeft}
             y2={baselineY}
-            className="stroke-slate-300 dark:stroke-[#475569]"
+            className="stroke-[#475569]"
             strokeWidth="1.5"
           />
 
@@ -444,22 +444,22 @@ export function InsTrackGrowthCharts({
             y1={baselineY}
             x2={svgWidth - paddingRight}
             y2={baselineY}
-            className="stroke-slate-300 dark:stroke-[#475569]"
+            className="stroke-[#475569]"
             strokeWidth="1.5"
           />
 
-          {/* Area Fill 1: Green Gradient (Target) */}
+          {/* Area Fill 1: Teal Gradient (Target) */}
           <path d={areaTop} fill="url(#budgetGreenGradient)" />
 
           {/* Area Fill 2: Purple Gradient (Actual Followers) */}
           <path d={areaBottom} fill="url(#spendPurpleGradient)" />
 
-          {/* Curve 1: Dotted Green Line (Target/Budget) */}
+          {/* Curve 1: Dotted Teal Line (Target/Budget) */}
           <path
             d={pathTop}
             fill="none"
-            stroke="#10B981"
-            strokeWidth="2.2"
+            stroke="#14B8A6"
+            strokeWidth="2.5"
             strokeDasharray="5 5"
             strokeLinecap="round"
           />
@@ -480,21 +480,21 @@ export function InsTrackGrowthCharts({
               y1={paddingTop - 5}
               x2={activePtTop.x}
               y2={baselineY}
-              className="stroke-slate-600 dark:stroke-white"
+              className="stroke-white"
               strokeWidth="1.5"
               strokeOpacity="0.8"
             />
           )}
 
-          {/* Intersection Marker on Green Dotted Line */}
+          {/* Intersection Marker on Teal Dotted Line */}
           {activePtTop && (
             <g>
               <circle
                 cx={activePtTop.x}
                 cy={activePtTop.y}
                 r="6.5"
-                fill="#10B981"
-                className="stroke-white dark:stroke-[#0B0F19]"
+                fill="#14B8A6"
+                className="stroke-[#111827]"
                 strokeWidth="2.5"
               />
               <circle cx={activePtTop.x} cy={activePtTop.y} r="2.5" fill="#FFFFFF" />
@@ -509,7 +509,7 @@ export function InsTrackGrowthCharts({
                 cy={activePtBottom.y}
                 r="6.5"
                 fill="#8B5CF6"
-                className="stroke-white dark:stroke-[#0B0F19]"
+                className="stroke-[#111827]"
                 strokeWidth="2.5"
               />
               <circle cx={activePtBottom.x} cy={activePtBottom.y} r="2.5" fill="#FFFFFF" />
@@ -528,8 +528,8 @@ export function InsTrackGrowthCharts({
                 textAnchor="middle"
                 className={`text-[11px] font-mono select-none transition-colors ${
                   isHovered
-                    ? "fill-slate-900 dark:fill-white font-bold"
-                    : "fill-slate-500 dark:fill-slate-400"
+                    ? "fill-white font-bold"
+                    : "fill-[#94A3B8] font-normal"
                 }`}
               >
                 {date}
@@ -540,14 +540,14 @@ export function InsTrackGrowthCharts({
       </div>
 
       {/* Footer Benchmark Insights Banner */}
-      <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-2">
+      <div className="mt-4 pt-3 border-t border-[#E2E8F0]/20 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-[#94A3B8] font-normal gap-2">
         <div className="flex items-center space-x-2">
-          <TrendingUp className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
+          <TrendingUp className="w-4 h-4 text-[#10B981] shrink-0" />
           <span>
-            Pacing at <strong className="text-slate-900 dark:text-white">+8.4%</strong> above average niche retention rate over 11 months.
+            Pacing at <strong className="text-white font-bold">+8.4%</strong> above average niche retention rate over 11 months.
           </span>
         </div>
-        <div className="font-mono text-[11px] text-slate-400 dark:text-slate-500">
+        <div className="font-mono text-[11px] text-[#94A3B8]">
           Source: Meta Graph API Telemetry • Auto-calibrated daily
         </div>
       </div>

@@ -69,24 +69,24 @@ export function GrowthDashboardView({
   ];
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in font-jakarta bg-[#F8FAFC] p-4 sm:p-6 rounded-2xl border border-[#E2E8F0]">
       {/* 1. Header Banner */}
-      <div className="rounded-2xl p-6 sm:p-7 bg-gradient-to-r from-emerald-950/40 via-teal-950/30 to-blue-950/40 border border-emerald-500/20 shadow-lg backdrop-blur-sm">
+      <div className="rounded-2xl p-6 sm:p-7 bg-gradient-to-r from-[#0F766E] to-[#6366F1] border border-[#E2E8F0]/30 shadow-lg backdrop-blur-sm text-white">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center space-x-2">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-white/10 text-white border border-white/20">
                 Growth Acceleration Lab
               </span>
-              <span className="flex items-center space-x-1 text-teal-400 text-xs font-semibold">
-                <TrendingUp className="w-3.5 h-3.5" />
+              <span className="flex items-center space-x-1 text-teal-200 text-xs font-semibold">
+                <TrendingUp className="w-3.5 h-3.5 text-[#14B8A6]" />
                 <span>Audience Velocity &amp; Benchmarks</span>
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight">
               Growth Trends &amp; Comparative Trajectory
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300">
+            <p className="text-xs sm:text-sm text-slate-100 font-normal">
               Interactive timeline curves, follower acceleration velocity, and category benchmark comparisons for @{creator.handle}.
             </p>
           </div>
@@ -94,7 +94,7 @@ export function GrowthDashboardView({
           <div className="flex items-center space-x-2">
             <button
               onClick={() => onNavigateTab("overview")}
-              className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all"
+              className="px-4 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-semibold backdrop-blur-md border border-white/20 transition-all shadow-sm"
             >
               ← Back to Overview
             </button>
@@ -107,24 +107,24 @@ export function GrowthDashboardView({
         {velocityMetrics.map((item, idx) => (
           <div
             key={idx}
-            className="rounded-2xl p-5 bg-[#0f172a] border border-slate-800 shadow-md hover:border-emerald-500/40 transition-all space-y-3"
+            className="rounded-2xl p-5 bg-[#111827] border border-[#E2E8F0]/20 shadow-md hover:border-[#14B8A6]/50 transition-all space-y-3"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#94A3B8]">
                 {item.title}
               </span>
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-xl bg-[#14B8A6]/10 text-[#14B8A6] border border-[#14B8A6]/20 flex items-center justify-center">
                 <TrendingUp className="w-4 h-4" />
               </div>
             </div>
             <div>
-              <div className="text-2xl font-black text-white tracking-tight">{item.value}</div>
-              <div className="flex items-center space-x-1 text-xs text-emerald-400 font-bold mt-1">
+              <div className="text-2xl sm:text-3xl font-extrabold text-[#FFFFFF] tracking-tight">{item.value}</div>
+              <div className="flex items-center space-x-1 text-xs text-[#10B981] font-semibold mt-1">
                 <ArrowUpRight className="w-3.5 h-3.5" />
                 <span>{item.rate}</span>
               </div>
             </div>
-            <p className="text-[11px] text-slate-400 border-t border-slate-800/80 pt-2">
+            <p className="text-[11px] text-[#94A3B8] font-normal border-t border-slate-800/80 pt-2">
               {item.desc}
             </p>
           </div>
@@ -144,11 +144,11 @@ export function GrowthDashboardView({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-white tracking-tight flex items-center space-x-2">
-              <BarChart3 className="w-5 h-5 text-indigo-400" />
+            <h3 className="text-base font-bold text-[#172554] tracking-tight flex items-center space-x-2">
+              <BarChart3 className="w-5 h-5 text-[#14B8A6]" />
               <span>Category Benchmark Comparisons</span>
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#94A3B8] font-normal">
               How @{creator.handle} stacks up against creators in the same follower tier.
             </p>
           </div>
