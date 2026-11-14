@@ -19,6 +19,7 @@ import {
   Clock,
   RotateCw,
 } from "lucide-react";
+import { formatDateOnly, formatRelativeTime } from "@/lib/dateUtils";
 import { saveProfileSnapshot, toggleWeeklyCrawl, isWeeklyCrawlEnabled } from "@/utils/supabase/snapshots";
 
 export type SubNavTab =
@@ -49,7 +50,10 @@ export interface CreatorProfile {
   avatar: string;
   bioLines: string[];
   linkUrl: string;
-  trackedSince: string;
+  trackedSince?: string;
+  trackedSinceDate?: string;
+  lastFetchedAt?: string | number | null;
+  lastFetchFailed?: boolean;
   followers: number;
   followersDelta: string;
   following: number;
@@ -77,6 +81,8 @@ export const DEFAULT_CREATOR: CreatorProfile = {
   ],
   linkUrl: "https://zyrohouse.bio.link",
   trackedSince: "Tracked since Jan, 10 2022 • Baseline reference dataset",
+  trackedSinceDate: "2022-01-10",
+  lastFetchedAt: null,
   followers: 68,
   followersDelta: "+1 (+0.50%)",
   following: 1,
@@ -455,8 +461,27 @@ export function InsTrackCreatorCard({
                 )}
               </div>
 
-              <div className="text-slate-400 dark:text-slate-500 pt-0.5">
-                {creator.trackedSince}
+              <div className="text-slate-400 dark:text-slate-500 pt-0.5" suppressHydrationWarning>
+                {creator.trackedSinceDate || creator.trackedSince ? (
+                  <span>
+                    Tracked since {formatDateOnly(creator.trackedSinceDate || creator.trackedSince)}.
+                    {creator.lastFetchFailed ? (
+                      <span className="text-amber-500 font-medium ml-1">
+                        • Update failed — cached from {formatRelativeTime(creator.lastFetchedAt)}
+                      </span>
+                    ) : creator.lastFetchedAt ? (
+                      <span className="ml-1">
+                        • Updated {formatRelativeTime(creator.lastFetchedAt)} via Meta Graph API.
+                      </span>
+                    ) : (
+                      <span className="ml-1 text-slate-400">
+                        • Freshness unavailable.
+                      </span>
+                    )}
+                  </span>
+                ) : (
+                  "Telemetry freshness unavailable."
+                )}
               </div>
             </div>
           </div>
@@ -605,7 +630,7 @@ export function InsTrackCreatorCard({
 
               {showDateDropdown && (
                 <div className="absolute right-0 mt-1 w-40 bg-white dark:bg-[#1E2638] border border-slate-200 dark:border-[#243048] rounded-xl shadow-xl py-1 z-30 text-xs animate-scale-up">
-                  {["Last 7 Days", "Last 30 Days", "Last 90 Days", "All Time"].map((opt) => (
+                  {["Today", "This Week", "Last 7 Days", "Last 30 Days", "Last 90 Days", "All Time"].map((opt) => (
                     <button
                       key={opt}
                       onClick={() => handleSelectDateRange(opt)}
