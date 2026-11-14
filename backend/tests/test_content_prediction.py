@@ -108,3 +108,49 @@ async def test_api_predict_content_get_endpoint():
         data = response.json()
         assert data["creator_handle"] == "thestevenmellor"
         assert len(data["predicted_ideas"]) > 0
+
+
+@pytest.mark.asyncio
+async def test_predict_draft_content_performance_high_performing():
+    """Verify predictive scoring on high-conversion hook."""
+    from app.core.schemas import DraftContentPredictionRequest, DraftContentPredictionResult
+    from app.services.content_predictor import predict_draft_content_performance
+
+    req = DraftContentPredictionRequest(
+        text="Stop using standard loops in Python in 2026. Here are 3 vector patterns that cut latency by 80%. Comment 'CODE' for the repo.",
+        format="REELS",
+        platform="instagram",
+        creator_baseline_er=4.2,
+    )
+    result = await predict_draft_content_performance(req)
+    assert isinstance(result, DraftContentPredictionResult)
+    assert result.predicted_er > 4.2  # Should predict outperformance
+    assert result.virality_score >= 70
+    assert result.hook_analysis.curiosity_score >= 70
+    assert len(result.strengths) >= 1
+    assert len(result.suggested_rewrites) >= 2
+
+
+@pytest.mark.asyncio
+async def test_api_predict_draft_engagement_endpoint():
+    """Verify POST /api/diagnostics/predict-draft-engagement endpoint."""
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.post(
+            "/api/diagnostics/predict-draft-engagement",
+            json={
+                "text": "The 5-Step System Architecture Checklist for 2026. Save this before your sprint.",
+                "format": "CAROUSEL_ALBUM",
+                "platform": "instagram",
+                "creator_baseline_er": 3.5,
+            },
+        )
+        assert response.status_code == 200
+        data = response.json()
+        assert "predicted_er" in data
+        assert "virality_score" in data
+        assert "hook_analysis" in data
+        assert "suggested_rewrites" in data
+        assert data["hook_analysis"]["curiosity_score"] > 0
+        assert len(data["suggested_rewrites"]) > 0
+

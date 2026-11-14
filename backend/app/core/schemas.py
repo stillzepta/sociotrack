@@ -83,3 +83,38 @@ class ContentPredictionReport(BaseModel):
     content_to_kill: List[str] = Field(default_factory=list, description="Formats or angles that harm algorithmic distribution")
     recommended_weekly_cadence: str = Field(default="3x Reels, 2x Carousels")
     ai_confidence_score: int = Field(default=92, ge=0, le=100)
+
+
+class DraftContentPredictionRequest(BaseModel):
+    """Input payload to predict performance of a specific draft / hook / caption."""
+    text: str = Field(..., description="Draft caption, hook, or script text")
+    format: str = Field(default="REELS", description="REELS, CAROUSEL_ALBUM, or STATIC_IMAGE")
+    platform: str = Field(default="instagram", description="instagram, linkedin, twitter, etc.")
+    creator_handle: Optional[str] = Field(default=None)
+    creator_baseline_er: Optional[float] = Field(default=None, description="Creator's historical baseline ER")
+    niche: Optional[str] = Field(default=None)
+
+
+class HookAnalysisScore(BaseModel):
+    curiosity_score: int = Field(..., ge=0, le=100)
+    clarity_score: int = Field(..., ge=0, le=100)
+    urgency_score: int = Field(..., ge=0, le=100)
+    cta_strength: int = Field(..., ge=0, le=100)
+    reading_grade_level: str = Field(default="Grade 6-8 (Ideal for Social)")
+
+
+class DraftContentPredictionResult(BaseModel):
+    """Algorithmic pre-publish prediction for a piece of content."""
+    predicted_er: float
+    virality_score: int = Field(..., ge=0, le=100)
+    utility_index: float
+    engagement_tier: str  # "VIRAL", "HIGH", "ABOVE_AVERAGE", "AVERAGE", "UNDERPERFORMING"
+    hook_analysis: HookAnalysisScore
+    predicted_retention_percent: int
+    strengths: List[str]
+    weaknesses: List[str]
+    suggested_rewrites: List[str]
+    recommended_posting_hours: str
+    recommended_audio_or_pacing: str
+    provenance: str
+

@@ -181,17 +181,76 @@ export function GenerationStudio({
       // Graceful fallback to client generation
     }
 
-    // High-Fidelity Client 3-Format Fallback
+    // High-Fidelity Client 3-Format Dynamic Synthesis
     setTimeout(() => {
       const now = Date.now();
-      const threeDrafts: PostDraft[] = [
-        {
-          id: `draft_${now}_1`,
-          platform: selectedPlatform,
-          tone: targetTone,
-          hookStyle: "Format A: Data-First Technical (Selected Winner)",
-          status: "Draft",
-          content: `We stress-tested ${topic} across 14,000 production cycles.
+      const cleanTopic = topic.trim() || "modern social intelligence";
+      const isTech = /ai|code|dev|system|tech|software|data|python/i.test(cleanTopic);
+      const isFinance = /finance|crypto|stock|money|invest|wealth/i.test(cleanTopic);
+      const isFitness = /fit|gym|workout|muscle|health|nutrition/i.test(cleanTopic);
+
+      let draft1Text = "";
+      let draft2Text = "";
+      let draft3Text = "";
+
+      if (isFitness) {
+        draft1Text = `We analyzed 12,000 sets tracking progress around ${cleanTopic}.
+
+The biomechanical data:
+• 68% drop in joint strain when bar path is adjusted by 2 inches
+• 2.4x higher muscle recruitment under eccentric control
+• Zero tendon flare-ups across the entire training block
+
+If you want long-term progression in ${cleanTopic}, prioritize mechanical tension over ego lifting.
+
+What lift are you dialing in this month?`;
+
+        draft2Text = `Unpopular opinion on ${cleanTopic}:
+
+Stop adding more training volume when your recovery is broken.
+
+If you are sleeping 5 hours and skipping protein targets, adding 6 extra sets won't build new tissue. It just drives nervous system fatigue.
+
+Agree or disagree?`;
+
+        draft3Text = `4-step checklist for ${cleanTopic}:
+
+1. Lock in progressive overload on your 2 primary compound movements
+2. Track weekly set volume per muscle group (aim for 12-16 hard sets)
+3. Consume 0.8g protein per lb of bodyweight consistently
+4. Take a deload week every 6-8 weeks before systemic fatigue hits
+
+Save this checklist for your next training block. 💪`;
+      } else if (isFinance) {
+        draft1Text = `We stress-tested real portfolio data around ${cleanTopic} across 10 years of market cycles.
+
+The performance metrics:
+• 42% lower drawdown volatility during market corrections
+• Rebalancing frequency optimized to 90-day intervals
+• Compound efficiency maximized by eliminating 1.5% in drag fees
+
+If you build capital in ${cleanTopic}, discipline beats emotional market timing every single time.
+
+What allocation metric are you watching this quarter?`;
+
+        draft2Text = `Unpopular opinion on ${cleanTopic}:
+
+Stop trying to time weekly market swings.
+
+The mathematical truth: Missing the 10 best trading days across a decade cuts total portfolio return in half. Build a systematic barbell allocation and stay invested.
+
+Agree or disagree?`;
+
+        draft3Text = `4-step wealth playbook for ${cleanTopic}:
+
+1. Separate emergency liquidity from long-term capital allocation
+2. Automate dollar-cost averaging on the 1st of every month
+3. Cut high-interest liabilities before chasing speculative yield
+4. Rebalance asset classes when deviation exceeds 5%
+
+Save this framework for your quarterly financial review. 📈`;
+      } else if (isTech) {
+        draft1Text = `We stress-tested ${cleanTopic} across 14,000 production cycles.
 
 The benchmark data:
 • 73% drop in unnecessary token burn
@@ -200,10 +259,65 @@ The benchmark data:
 
 If you build production systems, isolate your deterministic boundary seams before scaling prompts.
 
-What metric are you optimizing for this quarter?`,
+What metric are you optimizing for this quarter?`;
+
+        draft2Text = `Unpopular opinion on ${cleanTopic}:
+
+Stop letting non-deterministic LLMs manage their own state transitions.
+
+If your system needs 6 retries to remember what happened 3 turns ago, you don't need a larger context window. You need immutable state graphs and external vector memory.
+
+Agree or disagree?`;
+
+        draft3Text = `4-step production playbook for ${cleanTopic}:
+
+1. Split deterministic logic from probabilistic LLM inference
+2. Index high-resonance hooks into ChromaDB with dynamic weight updates
+3. Discard low-signal impressions (< 5.0 composite score)
+4. Enforce strict Pydantic state validation at all boundaries
+
+Save this checklist for your next architecture review. 🧵👇`;
+      } else {
+        draft1Text = `We analyzed performance across 10,000 campaigns focusing on ${cleanTopic}.
+
+The empirical data:
+• 64% increase in organic reach when leading with a negative pattern interrupt
+• Audience dwell time doubled on high-density breakdown carousels
+• Cost-per-acquisition dropped by 48% on verified proof hooks
+
+If you want predictable results with ${cleanTopic}, build structured frameworks instead of guessing daily trends.
+
+What is your primary growth priority right now?`;
+
+        draft2Text = `Unpopular opinion on ${cleanTopic}:
+
+Stop copying what everyone else in your industry is posting.
+
+When 95% of accounts share the exact same generic advice, the algorithm rewards creators with unique data, strong counter-narratives, and radical transparency.
+
+Agree or disagree?`;
+
+        draft3Text = `4-step execution blueprint for ${cleanTopic}:
+
+1. Identify the single biggest mistake your target audience makes daily
+2. Lead with an immediate 2-second pattern interrupt callout
+3. Provide an actionable step-by-step solution with real proof
+4. End with a specific high-value keyword CTA for direct DM delivery
+
+Save this framework before your next content planning sprint. 📌`;
+      }
+
+      const threeDrafts: PostDraft[] = [
+        {
+          id: `draft_${now}_1`,
+          platform: selectedPlatform,
+          tone: targetTone,
+          hookStyle: "Format A: Data-First Technical (Selected Winner)",
+          status: "Draft",
+          content: draft1Text,
           predictedEngagement: "HIGH",
           confidenceScore: 96,
-          aiExplanation: `Memory Rule #1 triggered: Technical dev leads save posts featuring specific percentage reductions 2.4x more frequently than prose tutorials.`,
+          aiExplanation: `Memory Rule #1 triggered: Posts featuring specific percentage changes and verified benchmarks generate 2.4x higher bookmark ratios.`,
           createdAt: "Just now",
           dosMatched: [
             "Benchmark statistics in opening 3 lines",
@@ -218,13 +332,7 @@ What metric are you optimizing for this quarter?`,
           tone: targetTone,
           hookStyle: "Format B: Contrarian Hot Take",
           status: "Draft",
-          content: `Unpopular opinion on ${topic}:
-
-Stop letting non-deterministic LLMs manage their own state transitions.
-
-If your system needs 6 retries to remember what happened 3 turns ago, you don't need a larger context window. You need immutable state graphs and external vector memory.
-
-Agree or disagree?`,
+          content: draft2Text,
           predictedEngagement: "HIGH",
           confidenceScore: 89,
           aiExplanation: `Memory Rule #2 triggered: Contrarian hooks challenging industry orthodoxy on state management generate 3.4x more saves and 2.8x higher comment density.`,
@@ -241,14 +349,7 @@ Agree or disagree?`,
           tone: targetTone,
           hookStyle: "Format C: Tactical Breakdown",
           status: "Draft",
-          content: `4-step production playbook for ${topic}:
-
-1. Split deterministic logic from probabilistic LLM inference
-2. Index high-resonance hooks into ChromaDB with dynamic weight updates
-3. Discard low-signal impressions (< 5.0 composite score)
-4. Enforce strict Pydantic state validation at all boundaries
-
-Save this checklist for your next architecture review. 🧵👇`,
+          content: draft3Text,
           predictedEngagement: "MEDIUM",
           confidenceScore: 84,
           aiExplanation: `Memory Rule #3 triggered: 4-step actionable playbooks achieve highest bookmark-to-impression ratio for ${selectedPlatform}.`,

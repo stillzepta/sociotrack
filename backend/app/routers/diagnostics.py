@@ -15,15 +15,33 @@ from app.routers.auth import get_optional_current_user
 from app.schemas.auth import UserResponse
 from app.services.authorization_service import sanitize_handle, verify_brand_access
 try:
-    from app.core.schemas import RawPost, CreatorAuditReport, ContentPredictionReport
+    from app.core.schemas import (
+        RawPost,
+        CreatorAuditReport,
+        ContentPredictionReport,
+        DraftContentPredictionRequest,
+        DraftContentPredictionResult,
+    )
     from app.core.diagnostics_agent import run_creator_audit
     from app.services.instagram_crawler import fetch_creator_posts, InstagramCrawlResult
-    from app.services.content_predictor import predict_winning_content
+    from app.services.content_predictor import (
+        predict_winning_content,
+        predict_draft_content_performance,
+    )
 except ImportError:
-    from backend.app.core.schemas import RawPost, CreatorAuditReport, ContentPredictionReport
+    from backend.app.core.schemas import (
+        RawPost,
+        CreatorAuditReport,
+        ContentPredictionReport,
+        DraftContentPredictionRequest,
+        DraftContentPredictionResult,
+    )
     from backend.app.core.diagnostics_agent import run_creator_audit
     from backend.app.services.instagram_crawler import fetch_creator_posts, InstagramCrawlResult
-    from backend.app.services.content_predictor import predict_winning_content
+    from backend.app.services.content_predictor import (
+        predict_winning_content,
+        predict_draft_content_performance,
+    )
 
 router = APIRouter(prefix="/diagnostics", tags=["Diagnostics"])
 
@@ -201,6 +219,22 @@ async def get_instagram_predict(
         niche=niche,
         data_source=crawl_result.source,
     )
+
+
+@router.post(
+    "/predict-draft-engagement",
+    response_model=DraftContentPredictionResult,
+    status_code=status.HTTP_200_OK,
+    summary="Predict performance and virality of pre-publish draft content or hook",
+)
+async def post_predict_draft_engagement(body: DraftContentPredictionRequest):
+    """
+    Evaluates draft content/hook before publishing.
+    Predicts engagement rate, virality score, retention probability,
+    and returns high-converting AI rewrites.
+    """
+    return await predict_draft_content_performance(body)
+
 
 
 @router.get(
